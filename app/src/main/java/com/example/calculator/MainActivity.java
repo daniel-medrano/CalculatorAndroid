@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.calculator.Models.Calculator;
+import com.example.calculator.models.Calculator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    TextView lblExpression;
     TextView lblResult;
     List<Button> btnOperands;
     List<Button> btnOperators;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     void initViews() {
         // Se inicializan los Views.
+        lblExpression = findViewById(R.id.lblExpression);
         lblResult = findViewById(R.id.lblResult);
         btnOperands = new ArrayList<>(10);
         btnOperators = new ArrayList<>(4);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                lblExpression.setText("0");
                 lblResult.setText("0");
             }
         });
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     // Se obtiene el resultado en forma de String al analizar la expresión y despues se muestra el resultado.
                     // Para ello se creo la clase Calculator con métodos para procesar la expresión.
                     String result = Calculator.calculateAsString(expression.replace("x", "*"));
+                    lblExpression.setText(expression);
                     lblResult.setText(result);
                 } catch (ArithmeticException e) {
                     // Se lidia con la excepcion de la división entre 0.

@@ -1,4 +1,4 @@
-package com.example.calculator.Models;
+package com.example.calculator.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
