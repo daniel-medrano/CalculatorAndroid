@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.calculator.Models.Calculator;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Button btnOperand = (Button) view;
-                    if (lblResult.getText().toString().equals("0")) {
+                    String expression = lblResult.getText().toString();
+                    if (expression.equals("0") || expression.equals("ERROR")) {
                         lblResult.setText(btnOperand.getText());
+                        return;
+                    }
+                    if (!Calculator.isNumeric(expression.substring(expression.length() - 1))) {
+                        lblResult.append(" " + btnOperand.getText());
                         return;
                     }
                     lblResult.append(btnOperand.getText());
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String operator = ((Button) view).getText().toString();
-                    lblResult.append(operator);
+                    lblResult.append(" " + operator);
                 }
             });
         }
@@ -82,13 +88,20 @@ public class MainActivity extends AppCompatActivity {
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                solve();
+                String expression = lblResult.getText().toString();
+                if (expression.equals("0") || expression.equals("ERROR")) {
+                    return;
+                }
+                try {
+                    // Se obtiene el resultado en forma de String al analizar la expresión y despues se muestra el resultado.
+                    // Para ello se creo la clase Calculator con métodos para procesar la expresión.
+                    String result = Calculator.calculateAsString(expression.replace("x", "*"));
+                    lblResult.setText(result);
+                } catch (ArithmeticException e) {
+                    // Se lidia con la excepcion de la división entre 0.
+                    lblResult.setText("ERROR");
+                }
             }
         });
-    }
-
-    public void solve() {
-        // TODO: 15/12/2022: implementar metodo.
-        System.out.println("Works!");
     }
 }
