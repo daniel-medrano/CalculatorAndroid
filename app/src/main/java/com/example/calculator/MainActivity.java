@@ -11,7 +11,8 @@ import com.example.calculator.models.Calculator;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// Programación V
+// José Daniel Medrano Guadamuz
 public class MainActivity extends AppCompatActivity {
     TextView lblExpression;
     TextView lblResult;
@@ -19,14 +20,13 @@ public class MainActivity extends AppCompatActivity {
     List<Button> btnOperators;
     Button btnClear;
     Button btnResult;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
     }
-
+    // Inicializa los botones y labels con sus respectivos eventos.
     void initViews() {
         // Se inicializan los Views.
         lblExpression = findViewById(R.id.lblExpression);
@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         btnOperators = new ArrayList<>(4);
         btnClear = findViewById(R.id.btnClear);
         btnResult = findViewById(R.id.btnResult);
-
         // Se define el evento OnClick para los botones que representan los operandos, los números del 0 al 9.
         for (int i = 0; i < 10; i++) {
+            // Se inicializan los operandos aprovechando que su nombre es igual y que solo cambia el número al final.
             int id = getResources().getIdentifier("btnOperand" + i, "id", getPackageName());
             Button btnOperand = findViewById(id);
-
+            // Se define el OnClick para cada operando.
             btnOperand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -60,11 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
             btnOperands.add(btnOperand);
         }
+        // Se inicializan los operadores.
         Button btnAddition = findViewById(R.id.btnAddition);
         Button btnSubtraction = findViewById(R.id.btnSubtraction);
         Button btnMultiplication = findViewById(R.id.btnMultiplication);
         Button btnDivision = findViewById(R.id.btnDivision);
-
+        // Se agregan a la lista de operadores.
         btnOperators.add(btnAddition);
         btnOperators.add(btnSubtraction);
         btnOperators.add(btnMultiplication);
