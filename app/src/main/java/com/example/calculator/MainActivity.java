@@ -1,7 +1,11 @@
 package com.example.calculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +79,12 @@ public class MainActivity extends AppCompatActivity {
             btnOperators.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String expression = lblResult.getText().toString();
+                    String lastValue = expression.substring(expression.length() - 1);
                     String operator = ((Button) view).getText().toString();
-                    lblResult.append(" " + operator);
+                    if (Calculator.isNumeric(lastValue)) {
+                        lblResult.append(" " + operator);
+                    }
                 }
             });
         }
@@ -93,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String expression = lblResult.getText().toString();
-                if (expression.equals("0") || expression.equals("ERROR")) {
+                String lastValue = expression.substring(expression.length() - 1);
+                if (expression.equals("0") || expression.equals("ERROR") || !Calculator.isNumeric(lastValue)) {
                     return;
                 }
                 try {
